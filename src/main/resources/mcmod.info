@@ -1,0 +1,16 @@
+[
+{
+  "modid": "SpawnChests",
+  "name": "SpawnChests",
+  "description": "",
+  "version": "$version",
+  "mcversion": "$mcversion",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["big_Xplosion"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [UniversalCore]
+}
+]
