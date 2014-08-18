@@ -68,4 +68,12 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 	{
 		return TESRSpawnChest.RENDER_ID;
 	}
+
+	@Override
+	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventId, int eventData)
+	{
+		super.onBlockEventReceived(world, x, y, z, eventId, eventData);
+		TileEntity tile = world.getTileEntity(x, y, z);
+		return tile != null && tile.receiveClientEvent(eventId, eventData);
+	}
 }

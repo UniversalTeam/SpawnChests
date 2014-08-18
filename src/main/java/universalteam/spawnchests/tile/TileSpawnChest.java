@@ -4,11 +4,69 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import universalteam.spawnchests.proxies.CommonProxy;
 
 public class TileSpawnChest extends TileEntity implements ISidedInventory
 {
 	public float lidAngle;
-	public float prevLidAngle;
+ 	public float prevLidAngle;
+	public int numUsingPlayers;
+	private int ticksSinceSync;
+
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+
+		if (++ticksSinceSync % 20 * 4 == 0)
+			worldObj.addBlockEvent(xCoord, yCoord, zCoord, CommonProxy.spawnChest, 1, numUsingPlayers);
+
+		prevLidAngle = lidAngle;
+		float angleIncrement = 0.1F;
+		double adjustedXCoord, adjustedZCoord;
+
+		if (numUsingPlayers > 0 && lidAngle == 0.0F)
+		{
+			adjustedXCoord = xCoord + 0.5D;
+			adjustedZCoord = zCoord + 0.5D;
+			worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		}
+
+		if (numUsingPlayers == 0 && lidAngle > 0.0F || numUsingPlayers > 0 && lidAngle < 1.0F)
+		{
+			float var8 = lidAngle;
+
+			if (numUsingPlayers > 0)
+				lidAngle += angleIncrement;
+			else
+				lidAngle -= angleIncrement;
+
+			if (lidAngle > 1.0F)
+				lidAngle = 1.0F;
+
+			if (lidAngle < 0.5F && var8 >= 0.5F)
+			{
+				adjustedXCoord = xCoord + 0.5D;
+				adjustedZCoord = zCoord + 0.5D;
+				worldObj.playSoundEffect(adjustedXCoord, yCoord + 0.5D, adjustedZCoord, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			}
+
+			if (lidAngle < 0.0F)
+				lidAngle = 0.0F;
+		}
+	}
+
+	@Override
+	public boolean receiveClientEvent(int eventID, int numUsingPlayers)
+	{
+		if (eventID == 1)
+		{
+			this.numUsingPlayers = numUsingPlayers;
+			return true;
+		}
+		else
+			return super.receiveClientEvent(eventID, numUsingPlayers);
+	}
 
 	@Override
 	public int getSizeInventory()
@@ -17,25 +75,25 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int p_70301_1_)
+	public ItemStack getStackInSlot(int slot)
 	{
 		return null;
 	}
 
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
+	public ItemStack decrStackSize(int slot, int amount)
 	{
 		return null;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_)
+	public ItemStack getStackInSlotOnClosing(int slot)
 	{
 		return null;
 	}
 
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
+	public void setInventorySlotContents(int slot, ItemStack stack)
 	{
 
 	}
@@ -59,7 +117,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
+	public boolean isUseableByPlayer(EntityPlayer player)
 	{
 		return false;
 	}
@@ -77,25 +135,25 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
+	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
 		return false;
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int p_94128_1_)
+	public int[] getAccessibleSlotsFromSide(int side)
 	{
 		return new int[0];
 	}
 
 	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_)
+	public boolean canInsertItem(int slot, ItemStack stack, int side)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_)
+	public boolean canExtractItem(int slot, ItemStack stack, int side)
 	{
 		return false;
 	}
