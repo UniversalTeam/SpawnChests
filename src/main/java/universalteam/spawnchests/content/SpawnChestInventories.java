@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class SpawnChestInventories
 {
-	protected static Map<String, SpawnChestContents> inventories = Maps.newHashMap();
+	public static Map<String, SpawnChestContents> inventories = Maps.newHashMap();
 
 	public static void registerInventory(SpawnChestContents contents)
 	{

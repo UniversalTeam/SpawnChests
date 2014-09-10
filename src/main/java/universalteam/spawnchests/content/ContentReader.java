@@ -1,5 +1,6 @@
 package universalteam.spawnchests.content;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.FMLLog;
@@ -9,6 +10,7 @@ import universalteam.spawnchests.lib.Reference;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 public class ContentReader
 {
@@ -18,7 +20,23 @@ public class ContentReader
 
 	public static void execute()
 	{
+		checkFileStructure();
+
 		readJSONFiles();
+	}
+
+	private static void checkFileStructure()
+	{
+		try
+		{
+			Files.createParentDirs(filesFolder);
+			if (!filesFolder.exists())
+				filesFolder.createNewFile();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private static void readJSONFiles()

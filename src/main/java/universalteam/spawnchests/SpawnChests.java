@@ -5,6 +5,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import universalteam.spawnchests.lib.Reference;
 import universalteam.spawnchests.proxies.CommonProxy;
 
@@ -33,5 +34,11 @@ public class SpawnChests
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+	}
+
+	@Mod.EventHandler
+	public void serverStarting(FMLServerStartingEvent event)
+	{
+		proxy.serverStarting();
 	}
 }

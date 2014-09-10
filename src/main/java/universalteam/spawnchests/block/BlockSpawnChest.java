@@ -14,7 +14,7 @@ import universalteam.spawnchests.tile.TileSpawnChest;
 
 public class BlockSpawnChest extends Block implements ITileEntityProvider
 {
-	protected BlockSpawnChest()
+	public BlockSpawnChest()
 	{
 		super(Material.wood);
 		this.setBlockName("spawnchest");
