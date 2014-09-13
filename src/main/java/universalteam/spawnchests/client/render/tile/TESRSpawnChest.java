@@ -1,6 +1,5 @@
 package universalteam.spawnchests.client.render.tile;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -12,7 +11,7 @@ import universalteam.spawnchests.tile.TileSpawnChest;
 
 public class TESRSpawnChest extends TileEntitySpecialRenderer
 {
-	public static final int RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
+	public static int RENDER_ID;
 
 	private final ModelChest model = new ModelChest();
 
@@ -28,7 +27,7 @@ public class TESRSpawnChest extends TileEntitySpecialRenderer
 		if (tileChest.getWorldObj() != null)
 			dir = ForgeDirection.getOrientation(tile.getBlockMetadata());
 
-		this.bindTexture(new ResourceLocation("textures/atlas/blocks.png"));
+		this.bindTexture(new ResourceLocation("textures/entity/chest/normal.png"));
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);

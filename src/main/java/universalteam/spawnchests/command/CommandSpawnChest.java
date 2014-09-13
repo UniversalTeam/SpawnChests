@@ -26,7 +26,7 @@ public class CommandSpawnChest extends CommandBase
 	@Override
 	public void processCommand(ICommandSender sender, String[] args)
 	{
-		if (!(sender instanceof EntityPlayer))
+		/*if (!(sender instanceof EntityPlayer))
 			return;
 
 		EntityPlayer player = (EntityPlayer) sender;
@@ -43,6 +43,10 @@ public class CommandSpawnChest extends CommandBase
 		stack.stackTagCompound = new NBTTagCompound();
 		stack.getTagCompound().setString("SC.invName", name);
 
+		player.setCurrentItemOrArmor(0, stack);*/
+
+		EntityPlayer player = (EntityPlayer) sender;                    //temp command
+		ItemStack stack = new ItemStack(CommonProxy.spawnChest, 0, 1);
 		player.setCurrentItemOrArmor(0, stack);
 	}
 }

@@ -41,11 +41,11 @@ public class CommonProxy
 	{
 		spawnChest = new BlockSpawnChest();
 
-		GameRegistry.registerBlock(spawnChest, "SC.spawnchest");
+		GameRegistry.registerBlock(spawnChest, "spawnchest");
 	}
 
 	private void initTiles()
 	{
-		GameRegistry.registerTileEntity(TileSpawnChest.class, "SC.spawnchest");
+		GameRegistry.registerTileEntity(TileSpawnChest.class, "spawnchest");
 	}
 }
