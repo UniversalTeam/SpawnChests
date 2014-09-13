@@ -41,6 +41,9 @@ public class ContentReader
 
 	private static void readJSONFiles()
 	{
+		if (filesFolder.listFiles(new JSONFileNameFilter()) == null)
+			return;
+
 		for (File file : filesFolder.listFiles(new JSONFileNameFilter()))
 			readJSON(file);
 	}
