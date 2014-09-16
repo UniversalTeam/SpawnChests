@@ -7,6 +7,7 @@ import net.minecraft.command.CommandHandler;
 import universalteam.spawnchests.block.BlockSpawnChest;
 import universalteam.spawnchests.command.CommandSpawnChest;
 import universalteam.spawnchests.content.ContentReader;
+import universalteam.spawnchests.content.SpawnChestInventories;
 import universalteam.spawnchests.tile.TileSpawnChest;
 
 public class CommonProxy
@@ -29,7 +30,7 @@ public class CommonProxy
 
 	public void postInit()
 	{
-
+		SpawnChestInventories.convertToItemStacks();
 	}
 
 	public void serverStarting()

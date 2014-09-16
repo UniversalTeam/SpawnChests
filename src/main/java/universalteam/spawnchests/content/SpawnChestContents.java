@@ -10,6 +10,7 @@ public class SpawnChestContents
 	{
 		public String id;
 		public int meta;
+		public int amount;
 		public String nbtTags;
 	}
 }
