@@ -1,6 +1,7 @@
 package universalteam.spawnchests.creative;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,6 +26,8 @@ public class CreativeTabSpawnChests extends CreativeTabs
 	@Override
 	public void displayAllReleventItems(List list)
 	{
+		super.displayAllReleventItems(list);
+
 		if (!SpawnChestInventories.isConverted())
 			return;
 
@@ -38,17 +41,5 @@ public class CreativeTabSpawnChests extends CreativeTabs
 			stack.getTagCompound().setString("SC.inventoryName", name);
 			list.add(stack);
 		}
-	}
-
-	@Override
-	public String getBackgroundImageName()
-	{
-		return "item_search.png";
-	}
-
-	@Override
-	public boolean hasSearchBar()
-	{
-		return true;
 	}
 }
