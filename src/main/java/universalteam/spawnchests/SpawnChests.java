@@ -35,10 +35,4 @@ public class SpawnChests
 	{
 		proxy.postInit();
 	}
-
-	@Mod.EventHandler
-	public void serverStarting(FMLServerStartingEvent event)
-	{
-		proxy.serverStarting();
-	}
 }

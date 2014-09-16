@@ -32,9 +32,4 @@ public class ClientProxy extends CommonProxy
 		super.postInit();
 	}
 
-	@Override
-	public void serverStarting()
-	{
-		super.serverStarting();
-	}
 }
