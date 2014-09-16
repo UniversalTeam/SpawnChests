@@ -10,6 +10,7 @@ import universalteam.spawnchests.command.CommandSpawnChest;
 import universalteam.spawnchests.content.ContentReader;
 import universalteam.spawnchests.content.SpawnChestInventories;
 import universalteam.spawnchests.creative.CreativeTabSpawnChests;
+import universalteam.spawnchests.itemblock.ItemBlockSpawnChest;
 import universalteam.spawnchests.tile.TileSpawnChest;
 
 public class CommonProxy
@@ -52,7 +53,7 @@ public class CommonProxy
 	{
 		spawnChest = new BlockSpawnChest();
 
-		GameRegistry.registerBlock(spawnChest, "spawnchest");
+		GameRegistry.registerBlock(spawnChest, ItemBlockSpawnChest.class, "spawnchest");
 	}
 
 	private void initTiles()
