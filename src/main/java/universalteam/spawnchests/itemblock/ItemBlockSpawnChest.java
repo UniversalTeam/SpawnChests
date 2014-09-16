@@ -1,17 +1,17 @@
 package universalteam.spawnchests.itemblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import universalteam.spawnchests.proxies.CommonProxy;
 
 import java.util.List;
 
 public class ItemBlockSpawnChest extends ItemBlock
 {
-	public ItemBlockSpawnChest()
+	public ItemBlockSpawnChest(Block block)
 	{
-		super(CommonProxy.spawnChest);
+		super(block);
 	}
 
 	@Override

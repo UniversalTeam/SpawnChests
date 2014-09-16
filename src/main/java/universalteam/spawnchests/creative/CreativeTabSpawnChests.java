@@ -25,6 +25,9 @@ public class CreativeTabSpawnChests extends CreativeTabs
 	@Override
 	public void displayAllReleventItems(List list)
 	{
+		if (!SpawnChestInventories.isConverted())
+			return;
+
 		for (String name : SpawnChestInventories.getItemStackContents().keySet())
 		{
 			ItemStack stack = new ItemStack(CommonProxy.spawnChest, 0, 1);
