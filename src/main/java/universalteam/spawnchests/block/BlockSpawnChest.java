@@ -11,6 +11,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalteam.spawnchests.client.render.tile.TESRSpawnChest;
+import universalteam.spawnchests.proxies.CommonProxy;
 import universalteam.spawnchests.tile.TileSpawnChest;
 
 public class BlockSpawnChest extends Block implements ITileEntityProvider
@@ -18,7 +19,7 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 	public BlockSpawnChest()
 	{
 		super(Material.wood);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(CommonProxy.spawnChestTab);
 		this.setBlockName("spawnchest");
 		this.setHardness(-1);
 		this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);

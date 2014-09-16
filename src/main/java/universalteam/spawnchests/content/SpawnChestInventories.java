@@ -48,7 +48,6 @@ public class SpawnChestInventories
 				}
 
 				int meta = entry.meta;
-
 				stack = new ItemStack(item, meta, entry.amount);
 
 				try
