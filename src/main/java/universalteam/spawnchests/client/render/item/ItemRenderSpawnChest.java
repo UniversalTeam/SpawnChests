@@ -38,11 +38,11 @@ public class ItemRenderSpawnChest implements IItemRenderer
 		switch (type)
 		{
 			case ENTITY:
-				GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+				GL11.glTranslatef(-1.5F, -1.5F, -1.5F);
 			case EQUIPPED:
 				GL11.glTranslatef(1.0F, 1.0F, 1.0F);
 			case EQUIPPED_FIRST_PERSON:
-				GL11.glTranslatef(1.0F, 1.0F, 1.0F);
+				GL11.glTranslatef(0.0F, 0.0F, 0.0F);
 			case INVENTORY:
 				GL11.glTranslatef(0.0F, 0.075F, 0.0F);
 		}
