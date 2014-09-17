@@ -25,7 +25,7 @@ public class TESRSpawnChest extends TileEntitySpecialRenderer
 		ForgeDirection dir = null;
 
 		if (tileChest.getWorldObj() != null)
-			dir = ForgeDirection.getOrientation(tile.getBlockMetadata());
+			dir = tileChest.getOrientation();
 
 		this.bindTexture(new ResourceLocation("textures/entity/chest/normal.png"));
 

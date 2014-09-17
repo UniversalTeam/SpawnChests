@@ -3,7 +3,6 @@ package universalteam.spawnchests.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,24 +33,28 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
 	{
-		int dir = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
-		int meta;
+		ForgeDirection orientation;
+		int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 
-		switch (dir)
+		switch (facing)
 		{
 			case 0:
-				meta = ForgeDirection.SOUTH.ordinal();
+				orientation = ForgeDirection.NORTH;
+				break;
 			case 1:
-				meta = ForgeDirection.WEST.ordinal();
+				orientation = ForgeDirection.EAST;
+				break;
 			case 2:
-				meta = ForgeDirection.NORTH.ordinal();
+				orientation = ForgeDirection.SOUTH;
+				break;
 			case 3:
-				meta = ForgeDirection.EAST.ordinal();
+				orientation = ForgeDirection.WEST;
+				break;
 			default:
-				meta = ForgeDirection.SOUTH.ordinal();
+				orientation = ForgeDirection.SOUTH;
 		}
 
-		world.setBlockMetadataWithNotify(x, y, z, meta, 3);
+		((TileSpawnChest) world.getTileEntity(x, y, z)).setOrientation(orientation);
 	}
 
 	@Override

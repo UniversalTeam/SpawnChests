@@ -4,14 +4,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import universalteam.spawnchests.proxies.CommonProxy;
 
 public class TileSpawnChest extends TileEntity implements ISidedInventory
 {
 	public float lidAngle;
- 	public float prevLidAngle;
+	public float prevLidAngle;
 	public int numUsingPlayers;
 	private int ticksSinceSync;
+
+	public ForgeDirection orientation = ForgeDirection.SOUTH;
 
 	@Override
 	public void updateEntity()
@@ -156,5 +159,15 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	public boolean canExtractItem(int slot, ItemStack stack, int side)
 	{
 		return false;
+	}
+
+	public void setOrientation(ForgeDirection orientation)
+	{
+		this.orientation = orientation;
+	}
+
+	public ForgeDirection getOrientation()
+	{
+		return orientation;
 	}
 }
