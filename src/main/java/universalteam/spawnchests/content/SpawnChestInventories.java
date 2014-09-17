@@ -47,7 +47,11 @@ public class SpawnChestInventories
 					continue;
 				}
 
-				int meta = entry.meta;
+				Integer meta = entry.meta;
+
+				if (meta == null)
+					meta = 0;
+
 				stack = new ItemStack(item, meta, entry.amount);
 
 				try
@@ -67,6 +71,9 @@ public class SpawnChestInventories
 					FMLLog.warning("[%s] Failed to read the NBTTags from %s in %s, the nbt data for this item will not be loaded!", Reference.MOD_ID, entry.id, contents.name);
 				}
 			}
+
+			if (contents.resetAfterDeath == null)
+				contents.resetAfterDeath = false;
 
 			itemStackContents.put(contents.name, new SpawnChestItemStackContents(contents.name, contents.resetAfterDeath, itemStacks));
 		}
