@@ -128,13 +128,15 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	@Override
 	public void openInventory()
 	{
-
+		++numUsingPlayers;
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, CommonProxy.spawnChest, 1, numUsingPlayers);
 	}
 
 	@Override
 	public void closeInventory()
 	{
-
+		--numUsingPlayers;
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, CommonProxy.spawnChest, 1, numUsingPlayers);
 	}
 
 	@Override
