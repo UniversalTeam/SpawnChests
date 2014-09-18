@@ -4,11 +4,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import universalteam.spawnchests.SpawnChests;
+import universalteam.spawnchests.client.GUIHandler;
 import universalteam.spawnchests.client.render.tile.TESRSpawnChest;
 import universalteam.spawnchests.proxies.CommonProxy;
 import universalteam.spawnchests.tile.TileSpawnChest;
@@ -74,6 +77,18 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 	{
 		return TESRSpawnChest.RENDER_ID;
 	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
+	{
+		if (player.isSneaking() || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN))
+			return true;
+		else if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileSpawnChest)
+			player.openGui(SpawnChests.instance, GUIHandler.SPAWN_CHEST_GUI_ID, world, x, y, z);
+
+		return true;
+	}
+
 
 	@Override
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventId, int eventData)

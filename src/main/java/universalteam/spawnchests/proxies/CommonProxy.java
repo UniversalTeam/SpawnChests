@@ -1,9 +1,12 @@
 package universalteam.spawnchests.proxies;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import universalteam.spawnchests.SpawnChests;
 import universalteam.spawnchests.block.BlockSpawnChest;
+import universalteam.spawnchests.client.GUIHandler;
 import universalteam.spawnchests.content.ContentReader;
 import universalteam.spawnchests.content.SpawnChestInventories;
 import universalteam.spawnchests.creative.CreativeTabSpawnChests;
@@ -24,6 +27,8 @@ public class CommonProxy
 		initBlocks();
 
 		initTiles();
+
+		NetworkRegistry.INSTANCE.registerGuiHandler(SpawnChests.instance, new GUIHandler());
 	}
 
 	public void init()

@@ -122,7 +122,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player)
 	{
-		return false;
+		return true;
 	}
 
 	@Override
