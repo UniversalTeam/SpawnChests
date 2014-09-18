@@ -1,4 +1,4 @@
-package universalteam.spawnchests.container;
+package universalteam.spawnchests.inventory.container;
 
 
 import net.minecraft.entity.player.EntityPlayer;
