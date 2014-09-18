@@ -34,7 +34,7 @@ public class SpawnChestInventories
 
 		for (SpawnChestContents contents : defaultContents.values())
 		{
-			ItemStack[] itemStacks = new ItemStack[64];
+			ItemStack[] itemStacks = new ItemStack[27];
 
 			for (SpawnChestContents.ItemEntry entry : contents.items)
 			{
