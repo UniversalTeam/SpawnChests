@@ -3,6 +3,7 @@ package universalteam.spawnchests.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -89,6 +90,11 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 		return true;
 	}
 
+	@Override
+	public void registerBlockIcons(IIconRegister iconRegister)
+	{
+		blockIcon = iconRegister.registerIcon("planks_oak");
+	}
 
 	@Override
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventId, int eventData)
