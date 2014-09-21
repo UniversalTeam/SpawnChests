@@ -7,8 +7,10 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalteam.spawnchests.SpawnChests;
@@ -109,5 +111,17 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 		super.onBlockEventReceived(world, x, y, z, eventId, eventData);
 		TileEntity tile = world.getTileEntity(x, y, z);
 		return tile != null && tile.receiveClientEvent(eventId, eventData);
+	}
+
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
+	{
+		TileSpawnChest tile = (TileSpawnChest) world.getTileEntity(x, y, z);
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setString("SC.inventoryName", tile.getInvName());
+		ItemStack stack = new ItemStack(this, 1, 0);
+		stack.setTagCompound(compound);
+
+		return stack;
 	}
 }
