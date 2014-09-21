@@ -20,6 +20,8 @@ public class ContentReader
 
 	public static void execute()
 	{
+		addTestContents();
+
 		checkFileStructure();
 
 		readJSONFiles();
@@ -63,6 +65,22 @@ public class ContentReader
 			return;
 		}
 
+		SpawnChestInventories.registerInventory(contents);
+	}
+
+	private static void addTestContents()
+	{
+		SpawnChestContents contents = new SpawnChestContents();
+		contents.name = "test";
+		contents.resetAfterDeath = false;
+		SpawnChestContents.ItemEntry[] items = new SpawnChestContents.ItemEntry[1];
+		SpawnChestContents.ItemEntry item = new SpawnChestContents.ItemEntry();
+		item.id = "minecraft:wood";
+		item.meta = 3;
+		item.amount = 2;
+		item.nbtTags = "{display:{Name:\"Test item\",Lore:[This is a test item]}}";
+		items[0] = item;
+		contents.items = items;
 		SpawnChestInventories.registerInventory(contents);
 	}
 

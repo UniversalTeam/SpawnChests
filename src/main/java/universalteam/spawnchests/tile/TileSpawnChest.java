@@ -16,6 +16,8 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 
 	public ForgeDirection orientation = ForgeDirection.SOUTH;
 
+	private String invName = "NONE";
+
 	@Override
 	public void updateEntity()
 	{
@@ -171,5 +173,21 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	public ForgeDirection getOrientation()
 	{
 		return orientation;
+	}
+
+	public boolean setInvName(String invName)
+	{
+		if (this.invName == "NONE")
+		{
+			this.invName = invName;
+			return true;
+		}
+
+		return false;
+	}
+
+	public String getInvName()
+	{
+		return invName;
 	}
 }

@@ -58,7 +58,11 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 				orientation = ForgeDirection.SOUTH;
 		}
 
-		((TileSpawnChest) world.getTileEntity(x, y, z)).setOrientation(orientation);
+		TileSpawnChest tile = (TileSpawnChest) world.getTileEntity(x, y, z);
+		tile.setOrientation(orientation);
+
+		if (stack.getTagCompound() != null)
+			tile.setInvName(stack.getTagCompound().getString("SC.inventoryName"));
 	}
 
 	@Override
