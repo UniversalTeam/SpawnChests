@@ -24,7 +24,10 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 		super(Material.wood);
 		this.setCreativeTab(CommonProxy.spawnChestTab);
 		this.setBlockName("spawnchest");
-		this.setHardness(-1);
+		this.setBlockUnbreakable();
+		this.disableStats();
+		this.setResistance(6000000.0F);
+		this.setStepSound(soundTypePiston);
 		this.setBlockBounds(0.0625f, 0.0f, 0.0625f, 0.9375f, 0.875f, 0.9375f);
 	}
 
