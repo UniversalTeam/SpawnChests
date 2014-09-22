@@ -102,4 +102,9 @@ public class SpawnChestInventories
 		else
 			return null;
 	}
+
+	public static SpawnChestItemStackContents getItemStackContents(String name)
+	{
+		return itemStackContents.get(name);
+	}
 }
