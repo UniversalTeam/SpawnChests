@@ -3,6 +3,8 @@ package universalteam.spawnchests.tile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalteam.spawnchests.proxies.CommonProxy;
@@ -17,6 +19,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	public ForgeDirection orientation = ForgeDirection.SOUTH;
 
 	private String invName = "NONE";
+	private ItemStack[] items = new ItemStack[27];
 
 	@Override
 	public void updateEntity()
@@ -74,27 +77,63 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	}
 
 	@Override
+	public void writeToNBT(NBTTagCompound compound)
+	{
+		super.writeToNBT(compound);
+		compound.setString("SC.inventoryName", invName);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		super.readFromNBT(compound);
+		this.invName = compound.getString("SC.inventoryName");
+	}
+
+	@Override
 	public int getSizeInventory()
 	{
-		return 0;
+		return 27;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		return null;
+		return items[slot];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int amount)
 	{
-		return null;
+		ItemStack itemStack = getStackInSlot(slot);
+
+		if (itemStack != null)
+		{
+			if (itemStack.stackSize <= amount)
+				setInventorySlotContents(slot, null);
+			else
+			{
+				itemStack = itemStack.splitStack(amount);
+
+				if (itemStack.stackSize == 0)
+					setInventorySlotContents(slot, null);
+			}
+		}
+
+		return itemStack;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot)
 	{
-		return null;
+		if (items[slot] != null)
+		{
+			ItemStack itemStack = items[slot];
+			items[slot] = null;
+			return itemStack;
+		}
+		else
+			return null;
 	}
 
 	@Override
@@ -106,7 +145,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	@Override
 	public String getInventoryName()
 	{
-		return null;
+		return "spawn chest";
 	}
 
 	@Override
@@ -118,7 +157,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	@Override
 	public int getInventoryStackLimit()
 	{
-		return 0;
+		return 64;
 	}
 
 	@Override
@@ -177,7 +216,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 
 	public boolean setInvName(String invName)
 	{
-		if (this.invName == "NONE")
+		if (this.invName.equals("NONE"))
 		{
 			this.invName = invName;
 			return true;

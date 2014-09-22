@@ -35,6 +35,7 @@ public class SpawnChestInventories
 		for (SpawnChestContents contents : defaultContents.values())
 		{
 			ItemStack[] itemStacks = new ItemStack[27];
+			int count = 0;
 
 			for (SpawnChestContents.ItemEntry entry : contents.items)
 			{
@@ -70,6 +71,9 @@ public class SpawnChestInventories
 				{
 					FMLLog.warning("[%s] Failed to read the NBTTags from %s in %s, the nbt data for this item will not be loaded!", Reference.MOD_ID, entry.id, contents.name);
 				}
+
+				itemStacks[count] = stack;
+				count++;
 			}
 
 			if (contents.resetAfterDeath == null)
@@ -97,19 +101,5 @@ public class SpawnChestInventories
 			return (Item) Item.itemRegistry.getObject(name);
 		else
 			return null;
-	}
-
-	public static class SpawnChestItemStackContents
-	{
-		public String name;
-		public boolean resetAfterDeath;
-		public ItemStack[] items;
-
-		public SpawnChestItemStackContents(String name, boolean resetAfterDeath, ItemStack[] items)
-		{
-			this.name = name;
-			this.resetAfterDeath = resetAfterDeath;
-			this.items = items;
-		}
 	}
 }
