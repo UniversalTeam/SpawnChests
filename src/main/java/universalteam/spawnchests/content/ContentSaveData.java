@@ -24,6 +24,14 @@ public class ContentSaveData extends WorldSavedData
 	private static final String SLOT_TAG = "Slot";
 	private static final String ITEMS_TAG = "Items";
 	private static final String PLAYER_NAME_TAG = "Player.";
+	private static final String SIZE_TAG = "Size";
+	private static final String X_TAG = "X";
+	private static final String Y_TAG = "Y";
+	private static final String Z_TAG = "Z";
+	private static final String DIM_ID_TAG = "DimID";
+	private static final String RESET_AFTER_DEATH_TAG = "ResetAfterDeath";
+
+	private boolean read = false;
 
 	public ContentSaveData()
 	{
@@ -147,13 +155,46 @@ public class ContentSaveData extends WorldSavedData
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
+		if (read)
+			return;
 
+		int size = compound.getInteger(SIZE_TAG);
+
+		for (int i = 0; i < size; ++i)
+		{
+			NBTTagCompound chestCompound = compound.getCompoundTag(String.valueOf(i));
+			NBTTagCompound storeTagCompound = new NBTTagCompound();
+
+			Location loc = new Location(chestCompound.getInteger(DIM_ID_TAG), chestCompound.getInteger(X_TAG), chestCompound.getInteger(Y_TAG), chestCompound.getInteger(Z_TAG));
+			storeTagCompound.setString(INVENTORY_NAME_TAG, chestCompound.getString(INVENTORY_NAME_TAG));
+
+			if (chestCompound.getBoolean(RESET_AFTER_DEATH_TAG))
+				resetAfterDeathChests.add(loc);
+		}
+
+		read = true;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
+		compound.setInteger(SIZE_TAG, chestCompounds.size());
+		int num = 0;
 
+		for (Location loc : chestCompounds.keySet())
+		{
+			NBTTagCompound storeChestCompound = new NBTTagCompound();
+
+			storeChestCompound.setInteger(X_TAG, loc.x);
+			storeChestCompound.setInteger(Y_TAG, loc.y);
+			storeChestCompound.setInteger(Z_TAG, loc.z);
+			storeChestCompound.setInteger(DIM_ID_TAG, loc.dimID);
+			storeChestCompound.setBoolean(RESET_AFTER_DEATH_TAG, resetAfterDeathChests.contains(loc));
+			storeChestCompound.setString(INVENTORY_NAME_TAG, chestCompounds.get(loc).getString(INVENTORY_NAME_TAG));
+
+			compound.setTag(String.valueOf(num), storeChestCompound);
+			num++;
+		}
 	}
 
 	public static class Location
