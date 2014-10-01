@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import universalteam.spawnchests.content.ContentSaveData;
 import universalteam.spawnchests.proxies.CommonProxy;
 
 public class TileSpawnChest extends TileEntity implements ISidedInventory
@@ -19,7 +20,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	public ForgeDirection orientation = ForgeDirection.SOUTH;
 
 	private String invName = "NONE";
-	private ItemStack[] items = new ItemStack[27];
+	public ItemStack[] items = new ItemStack[27];
 
 	@Override
 	public void updateEntity()
@@ -178,6 +179,7 @@ public class TileSpawnChest extends TileEntity implements ISidedInventory
 	{
 		--numUsingPlayers;
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, CommonProxy.spawnChest, 1, numUsingPlayers);
+		this.items = null;
 	}
 
 	@Override

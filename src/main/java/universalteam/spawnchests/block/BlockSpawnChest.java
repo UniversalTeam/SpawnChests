@@ -16,6 +16,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import universalteam.spawnchests.SpawnChests;
 import universalteam.spawnchests.client.GUIHandler;
 import universalteam.spawnchests.client.render.tile.TESRSpawnChest;
+import universalteam.spawnchests.content.ContentSaveData;
+import universalteam.spawnchests.content.SpawnChestInventories;
 import universalteam.spawnchests.proxies.CommonProxy;
 import universalteam.spawnchests.tile.TileSpawnChest;
 
@@ -66,8 +68,19 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 		TileSpawnChest tile = (TileSpawnChest) world.getTileEntity(x, y, z);
 		tile.setOrientation(orientation);
 
-		if (stack.getTagCompound() != null)
-			tile.setInvName(stack.getTagCompound().getString("SC.inventoryName"));
+		if (stack.getTagCompound() == null || !SpawnChestInventories.defaultContents.containsKey("SC.inventoryName"))
+			return;
+
+		tile.setInvName(stack.getTagCompound().getString("SC.inventoryName"));
+		ContentSaveData.addNewChestToWorld(world, x, y, z, SpawnChestInventories.getItemStackContents().get(("SC.inventoryName")));
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+	{
+		super.breakBlock(world, x, y, z, block, meta);
+
+		ContentSaveData.removeChestFromWorld(world, x, y, z);
 	}
 
 	@Override
@@ -94,7 +107,11 @@ public class BlockSpawnChest extends Block implements ITileEntityProvider
 		if (player.isSneaking() || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN))
 			return true;
 		else if (!world.isRemote && world.getTileEntity(x, y, z) instanceof TileSpawnChest)
+		{
+			ContentSaveData.onInventoryOpened(player, x, y, z);
+			((TileSpawnChest) world.getTileEntity(x, y, z)).items = ContentSaveData.getItemsForPlayer(player, x, y, z);
 			player.openGui(SpawnChests.instance, GUIHandler.SPAWN_CHEST_GUI_ID, world, x, y, z);
+		}
 
 		return true;
 	}

@@ -6,6 +6,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import universalteam.spawnchests.content.ContentSaveData;
 import universalteam.spawnchests.inventory.slot.SlotOutput;
 import universalteam.spawnchests.tile.TileSpawnChest;
 
@@ -30,13 +31,14 @@ public class ContainerSpawnChest extends Container
 				this.addSlotToContainer(new Slot(invPlayer, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 84 + invRow * 18));
 
 		for (int actionBarSlot = 0; actionBarSlot < INV_COLUMNS; ++actionBarSlot)
-				this.addSlotToContainer(new Slot(invPlayer, actionBarSlot, 8 + actionBarSlot * 18, 142));
+			this.addSlotToContainer(new Slot(invPlayer, actionBarSlot, 8 + actionBarSlot * 18, 142));
 	}
 
 	@Override
 	public void onContainerClosed(EntityPlayer player)
 	{
 		super.onContainerClosed(player);
+		ContentSaveData.onInventoryClosed(player, tile.xCoord, tile.yCoord, tile.zCoord, tile.items);
 		tile.closeInventory();
 	}
 
